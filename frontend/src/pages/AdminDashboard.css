@@ -1,0 +1,153 @@
+.admin-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #2563eb, #06b6d4);
+  font-family: 'Poppins', sans-serif;
+}
+
+.admin-login-form {
+  background: #fff;
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: center;
+}
+
+.admin-login-form h1 {
+  color: #333;
+  margin-bottom: 0;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.admin-login-form input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.admin-login-form input:focus {
+  border-color: #2563eb;
+  outline: none;
+  box-shadow: 0 0 5px #2563eb;
+}
+
+.admin-login-form button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.admin-login-form button:hover {
+  background-color: #1e40af;
+}
+
+.admin-dashboard {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2563eb, #06b6d4);
+  font-family: 'Poppins', sans-serif;
+  padding: 40px;
+  color: #333;
+}
+
+.admin-dashboard header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  margin-bottom: 30px;
+}
+
+.refresh-btn {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.refresh-btn:hover {
+  background-color: #1e40af;
+}
+
+.payment-table {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  padding: 25px;
+}
+
+.payment-table h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.payment-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.payment-table th,
+.payment-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.payment-table tr:hover {
+  background: #f9fafb;
+}
+
+.payment-table .verify-btn {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.payment-table .verify-btn:hover {
+  background-color: #1e40af;
+}
+
+.payment-table td.verified {
+  color: green;
+  font-weight: 600;
+}
+
+.no-data {
+  text-align: center;
+  color: #666;
+  font-size: 15px;
+}
+
+.message {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 14px;
+}
