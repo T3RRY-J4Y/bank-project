@@ -1,42 +1,46 @@
 import express from "express";
-import { body, validationResult } from "express-validator";
 import Payment from "../models/Payment.js";
 import { authCustomer } from "../middleware/auth.js";
+import { currencyRegex, swiftRegex, accountRegex } from "../utils/validators.js";
 
 const router = express.Router();
 
-router.post(
-  "/",
-  authCustomer,
-  [
-    body("amount").isFloat({ gt: 0 }),
-    body("currency").isLength({ min: 3, max: 3 }).isUppercase(),
-    body("payeeAccount").matches(/^\d{6,20}$/),
-    body("swiftCode").matches(/^[A-Z0-9]{8,11}$/),
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({ message: "Invalid input", errors: errors.array() });
-
+// Create Payment
+router.post("/", authCustomer, async (req, res) => {
+  try {
     const { amount, currency, payeeAccount, swiftCode } = req.body;
 
-    try {
-      const payment = new Payment({
-        userId: req.user.id,
-        amount,
-        currency,
-        payeeAccount,
-        swiftCode,
-        status: "Pending"
-      });
-      await payment.save();
-      res.status(201).json({ message: "Payment created successfully.", payment });
-    } catch (err) {
-      res.status(500).json({ message: "Error creating payment.", error: err.message });
-    }
-  }
-);
+    // Validate input using regex
+    if (isNaN(amount) || Number(amount) <= 0) 
+      return res.status(400).json({ message: "Amount must be a positive number." });
 
+    if (!currencyRegex.test(currency)) 
+      return res.status(400).json({ message: "Currency must be a 3-letter code (e.g., ZAR)." });
+
+    if (!accountRegex.test(payeeAccount)) 
+      return res.status(400).json({ message: "Payee account must contain 6–20 digits." });
+
+    if (!swiftRegex.test(swiftCode)) 
+      return res.status(400).json({ message: "SWIFT code must be 8–11 letters/numbers." });
+
+    // Create payment
+    const payment = new Payment({
+      userId: req.user.id,
+      amount,
+      currency,
+      payeeAccount,
+      swiftCode,
+      status: "Pending" // default status
+    });
+
+    await payment.save();
+    res.status(201).json({ message: "Payment created successfully.", payment });
+  } catch (err) {
+    res.status(500).json({ message: "Error creating payment.", error: err.message });
+  }
+});
+
+// List Payments (customer’s own)
 router.get("/", authCustomer, async (req, res) => {
   try {
     const payments = await Payment.find({ userId: req.user.id });
